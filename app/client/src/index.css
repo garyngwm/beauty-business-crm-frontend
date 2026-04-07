@@ -1,0 +1,282 @@
+/* First, apply base, then components, then utilities (later overrides earlier) */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 0 0% 100%;
+  --foreground: 20 14.3% 4.1%;
+  --muted: 60 4.8% 95.9%;
+  --muted-foreground: 25 5.3% 44.7%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 20 14.3% 4.1%;
+  --card: 0 0% 100%;
+  --card-foreground: 20 14.3% 4.1%;
+  --border: 20 5.9% 90%;
+  --input: 210 6% 57%;
+  --primary: 267 90% 54%; /* #8B5FBF - Beauty Purple */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 60 4.8% 95.9%;
+  --secondary-foreground: 24 9.8% 10%;
+  --accent: 60 4.8% 95.9%;
+  --accent-foreground: 24 9.8% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 60 9.1% 97.8%;
+  --ring: 20 14.3% 4.1%;
+  --radius: 0.5rem;
+
+  /* Beauty theme colors */
+  --beauty-purple: 267 90% 54%; /* #8B5FBF */
+  --beauty-purple-light: 267 90% 61%; /* #903DF5 (for hover) */
+  --beauty-pink: 339 100% 70%; /* #FF6B9D */
+  --beauty-pink-light: 339 100% 93%; /* #FFDCE8 */
+}
+
+.dark {
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+  --popover: 240 10% 3.9%;
+  --popover-foreground: 0 0% 98%;
+  --card: 240 10% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
+  --primary: 267 90% 54%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 240 3.7% 15.9%;
+  --secondary-foreground: 0 0% 98%;
+  --accent: 240 3.7% 15.9%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --ring: 240 4.9% 83.9%;
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    font-family: "Inter", sans-serif;
+  }
+
+  /* Form fields styling, purple border on focus/active */
+  /* :where gives this 0 specificity, so can be easily overriden on a per-component basis */
+  :where(input, select, textarea, button) {
+    @apply focus:border-[color:hsl(var(--beauty-purple))]
+           active:border-[color:hsl(var(--beauty-purple))];
+  }
+}
+
+@layer utilities {
+  .beauty-purple {
+    color: hsl(var(--beauty-purple));
+  }
+
+  .bg-beauty-purple {
+    background-color: hsl(var(--beauty-purple));
+  }
+
+  .beauty-purple-light {
+    color: hsl(var(--beauty-purple-light));
+  }
+
+  .bg-beauty-purple-light {
+    background-color: hsl(var(--beauty-purple-light));
+  }
+
+  .beauty-pink {
+    color: hsl(var(--beauty-pink));
+  }
+
+  .bg-beauty-pink {
+    background-color: hsl(var(--beauty-pink));
+  }
+
+  .beauty-pink-light {
+    color: hsl(var(--beauty-pink-light));
+  }
+
+  .bg-beauty-pink-light {
+    background-color: hsl(var(--beauty-pink-light));
+  }
+}
+
+/*      SPACER       */
+/* Temp workaround for the annoying missing right border for time picker */
+.react-datepicker {
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1) !important;
+  border-radius: 6px;
+  @apply border border-slate-500 shadow-[0px_0.5px_8px_rgba(0,0,0,0.15)] !important;
+}
+
+/* Remove the stupid triangle nonsense */
+.react-datepicker__triangle {
+  display: none !important;
+}
+
+/* Remove the days that are not part of the month */
+.react-datepicker__day--outside-month {
+  color: transparent;
+  pointer-events: none;
+  user-select: none;
+  background-color: transparent;
+}
+
+/* Header customizations */
+.react-datepicker__header {
+  @apply bg-purple-400 pt-0 pb-0.5;
+}
+
+.react-datepicker__header--time {
+  @apply bg-purple-400 px-2 py-2 !important;
+  border: none !important;
+}
+
+.react-datepicker__current-month,
+.react-datepicker-time__header {
+  @apply font-sans font-semibold text-sm text-black;
+}
+
+.react-datepicker__navigation-icon::before {
+  border-color: black;
+  border-width: 1.8px 1.8px 0 0;
+  /* For apparent alignment */
+  margin-top: 3px;
+  width: 8px;
+  height: 8px;
+}
+
+/* Ensure the arrow stays black on hover */
+.react-datepicker__navigation:hover .react-datepicker__navigation-icon::before {
+  border-color: black !important;
+}
+
+/* Time specific customizations */
+.react-datepicker__time-container {
+  position: relative !important;
+  border-left: none !important;
+}
+
+.react-datepicker__time-container::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0px;
+  bottom: 0px;
+  width: 1px;
+  background-color: rgb(100 116 139); /* slate-500 */
+  z-index: 1;
+}
+
+.react-datepicker__time-box {
+  @apply pb-2 pt-2;
+}
+
+.react-datepicker__time-list {
+  padding-top: 0 !important;
+}
+
+.react-datepicker__time-list-item {
+  padding-top: 3px !important;
+  margin-top: 3px !important;
+  margin-left: 5px !important;
+  margin-right: 5px !important;
+
+  /* For the text centering */
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+/* Scrollbar customizations for time part */
+.react-datepicker__time-list::-webkit-scrollbar {
+  width: 6px;
+}
+.react-datepicker__time-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+.react-datepicker__time-list::-webkit-scrollbar-thumb {
+  background-color: #a3a3a3;
+  border-radius: 4px;
+}
+.react-datepicker__time-list::-webkit-scrollbar-thumb:hover {
+  background-color: #737373;
+}
+
+.react-datepicker__time-list-item:hover:not(
+    .react-datepicker__time-list-item--selected
+  ) {
+  @apply rounded-lg bg-green-200 text-black transition-colors duration-200 !important;
+}
+
+.react-datepicker__time-list-item--selected {
+  @apply rounded-lg bg-green-400/80 text-black transition-colors duration-200 !important;
+}
+
+/* Date specific customizations */
+.react-datepicker__current-month {
+  @apply font-sans font-semibold text-sm text-black p-2 !important;
+}
+
+.react-datepicker__day-names {
+  @apply border-none bg-white;
+}
+
+.react-datepicker__day {
+  @apply font-normal;
+}
+
+/* Exclude selected state from hover style */
+.react-datepicker__day:hover:not(.react-datepicker__day--selected),
+.react-datepicker__day--keyboard-selected:not(
+  .react-datepicker__day--selected
+) {
+  @apply bg-green-200 rounded-full text-black transition-colors duration-100 !important;
+}
+
+/* Exclude selection if the day is not from the current month */
+.react-datepicker__day--selected:not(.react-datepicker__day--outside-month) {
+  @apply bg-green-400/80 rounded-full text-black transition-colors duration-100 !important;
+}
+
+[data-radix-select-content][data-state="closed"] {
+  pointer-events: none !important;
+}
+
+/*       SPACER           */
+/* Sonner tooltip styling */
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.toast-enter {
+  animation: slideIn 0.35s cubic-bezier(0.21, 1.02, 0.73, 1) !important;
+}
+
+.toast-exit {
+  animation: slideOut 0.3s ease-in forwards !important;
+}
