@@ -2,7 +2,7 @@ import { supabase } from "@/lib/supabase";
 
 const IDLE_LIMIT_MS = 120 * 60 * 1000;      // 2 hours
 const WARN_BEFORE_MS = 60 * 1000;          // warn 1 min before logout
-const LOGIN_DAY_KEY = "kosme_login_day";
+const LOGIN_DAY_KEY = "crm_login_day";
 
 // Format Singapore date (YYYY-MM-DD)
 function sgDayString(d = new Date()) {

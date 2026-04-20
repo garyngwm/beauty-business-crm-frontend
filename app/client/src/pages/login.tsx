@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { supabase } from "../lib/supabase";
-import logo from "../assets/KosmeLogo.png";
+import logo from "../assets/logo.png";
 
 import { Button } from "~/button";
 import { Input } from "~/input";
